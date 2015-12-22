@@ -1,0 +1,77 @@
+.title-text{
+	text-align: center;
+}
+.result-contain{
+	width:99%;
+	font-size: 14px;
+	margin:0 auto;
+	margin-bottom: 60px;
+}
+.result-contain td{
+	text-align: center;
+}
+tr:nth-child(even){
+	background:#F4F4F4;
+}
+thead .th-allnum td{
+	text-align: right;
+	height:40px;
+	vertical-align: middle;
+	color: red;
+}
+thead .th-text{
+	background: #73b1e0;
+}
+thead th{
+	height:50px;
+	vertical-align: middle;
+}
+.addname{
+	width:80px;
+}
+.mainimg{
+	width:110px;
+}
+.mainimg img{
+	width:100px;
+}
+.tags{
+	width:100px;
+}
+.abstracts{
+	width:300px;
+}
+.imgs li{
+	display: inline-block;
+}
+.imgs li a img{
+	width:30px;
+	height:auto;
+}
+.imgs li span{
+	display: none;
+}
+.uTime{
+	width:120px;
+}
+.url{
+	width:80px;
+}
+.page-tip{
+	display: inline-block;
+	padding: 0 5px;
+	min-width:35px;
+	height:30px;
+	text-align: center;
+	line-height: 30px;
+	background: #eee;
+	text-decoration: none;
+	margin: 0 3px;
+}
+.page-tip-add{
+	margin: 0;
+}
+.pagetip-actived{
+	background: #254ca4 ;
+	color: #fff;
+}

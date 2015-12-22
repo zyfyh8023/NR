@@ -1,0 +1,35 @@
+{
+  "name": "NR",
+  "version": "1.0.0",
+  "description": "rrShow jobs  spider",
+  "main": "index.js",
+  "dependencies": {
+    "async": ">=0.2.10",
+    "bufferhelper": "0.2.0",
+    "cheerio": "0.12.4",
+    "ejs": "0.8.5",
+    "express": "3.3.4",
+    "iconv-lite": "0.2.11",
+    "log4js": "^0.6.28",
+    "moment": "^2.10.6",
+    "mongoose": "^4.3.1",
+    "optimist": "^0.6.1",
+    "redis": ">=0.12.1",
+    "stylus": "0.40.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "webconfig": "node index -i zy1 -a config -p 8200",
+    "test": "node index -i zy1 -a test -l http://www.sovxin.com/weixin_77897.html",
+    "test1": "node index -i zy1 -a test -l http://www.mafengwo.cn/gonglve/mdd-11065.html",
+    "schedule": "node index -i zy1 -a schedule",
+    "proxy": "node index -i zy1 -a proxy -p 2013",
+    "crawl": "node index -i zy1 -a crawl",
+    "results": "node index -i zy1 -a results -p 8100"
+  },
+  "author": "zy",
+  "license": "MIT",
+  "engines": {
+    "node": "0.12.0"
+  }
+}

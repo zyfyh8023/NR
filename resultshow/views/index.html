@@ -1,0 +1,64 @@
+<html>
+	<head>
+		<title><%= title %></title>
+		<link href="./stylesheets/resultshow.css" rel="stylesheet"></link>
+	</head>
+	<body>
+		<h1 class="title-text">结果展示</h1>
+		<table class="result-contain">
+			<% if (jobs.length>0) { %> 
+					<thead>
+						<tr class="th-allnum"><td class="J_page-tip-con" colspan="7">
+						共有<%= allpage %>页，<%= nums %>条记录&nbsp;
+						<% if(showpagetip<allpage) {%>
+							<a class="page-tip pre-page page-tip-add" href="javascript:;"><<</a>
+						<% } %>
+						<% for(var i=1; i<=showpagetip; i++) {%>
+							<% if(i==1) { %>
+								<a class="page-tip pagetip-actived page-tip-add" href="javascript:;"><%= i %></a>
+							<% }else{ %>
+								<a class="page-tip page-tip-add" href="javascript:;"><%= i %></a>
+							<% } %>
+						<% } %>
+						<% if(showpagetip<allpage) {%>
+							<a class="page-tip next-page" href="javascript:;">>></a>
+						<% } %>
+						</td></tr>
+						<tr class="th-text">
+							<th>addname</th>
+							<th>mainimg</th>
+							<th>tags</th>
+							<th>abstracts</th>
+							<th>imgs</th>
+							<th>uTime</th>
+							<th>原始网页</th>
+						</tr>
+					</thead><tbody>
+			    	<% for(var i=0; i<10; i++) {%>
+			    		<tr>
+				    		<td class="addname"><%= jobs[i].addname %></td> 
+				    		<td class="mainimg">
+				    			<a class="on_fous preview_btn" href="javascript:;">
+				    			<img src="<%= jobs[i].mainimg %>" /></a>
+				    		</td> 
+				    		<td class="tags"><%- jobs[i].tags %></td>  
+				    		<td class="abstracts"><%- jobs[i].abstracts %></td> 
+				    		<td class="imgs"><%- jobs[i].imgs %></td>
+				    		<td class="uTime"><%=: jobs[i].uTime | dateformat:'YYYY-MM-DD HH:mm:ss' %></td>
+			    			<td class="url"><a href="<%= jobs[i].url %>" target="_blank">查看</a></td>
+						</tr>
+					<% } %>
+			<% } %>
+		</tbody></table>
+		
+		<script>
+			window.__data={
+				allpage: <%= allpage %>,
+				showpagetip: <%= showpagetip %>,
+				nums: <%= nums %>
+			}
+		</script>
+		<script type="text/javascript" src="./javascripts/jquery.min.js"></script>
+		<script type="text/javascript" src="./javascripts/resultshow.js"></script>
+	</body>
+</html>
