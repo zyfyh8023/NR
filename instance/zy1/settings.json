@@ -9,7 +9,7 @@
     "spider_request_delay":0,
     "use_proxy":false,
     "proxy_router":"127.0.0.1:2013",
-    "download_timeout":60,
+    "download_timeout":6000,
     "to_much_fail_exit":false,
     "spider_concurrency":5,
     "keep_link_relation":false,

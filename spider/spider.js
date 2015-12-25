@@ -102,6 +102,7 @@ spider.prototype.refreshDrillerRules = function(){
                     if (err){
                         throw(err);
                     }
+
                     self.tmp_driller_rules = {};
                     self.tmp_driller_rules_length = values.length;
                     for(var i=0;i<values.length;i++){
@@ -163,10 +164,12 @@ spider.prototype.getDrillerRule = function(id,name){
     if(splited_id[0]==='urllib'){
         pos = 2;
     }
-    
     if(this.driller_rules[splited_id[pos]][splited_id[pos+1]] && this.driller_rules[splited_id[pos]][splited_id[pos+1]].hasOwnProperty(name)){
+        // console.log('11111111111111111111111111');
+        // console.log(this.driller_rules[splited_id[pos]][splited_id[pos+1]][name]);
         return this.driller_rules[splited_id[pos]][splited_id[pos+1]][name];
     }else{
+        // console.log('22222222222222222222222222');
         logger.warn(util.format('%s in %s %s, not found',name,splited_id[pos],splited_id[pos+1]));
         return false;
     }
@@ -232,15 +235,17 @@ spider.prototype.getUrlQueue = function(callback){
                     return;
                 }
             };
+            // console.log(link);
+            // process.exit();
             var linkhash = crypto.createHash('md5').update(link).digest('hex');
             redis_urlinfo_db.hgetall(linkhash,function(err, link_info){  //在开始只有queue里面的数据，在redis_urlinfo_db里面也存在
                     //4---------------------------------------------------------------------------------
                     if(err){
                         throw(err);
                     }
-                    console.log(link_info);
-                    console.log(!link_info || isEmpty(link_info));
-                    process.exit();
+                    // console.log(link_info);
+                    // console.log(!link_info || isEmpty(link_info));
+                    // process.exit();
                     //最开始queue和urllib是相同的，但这里面的不同不知为何？？？
                     if(!link_info || isEmpty(link_info)){
                         logger.warn(link+' has no url info, '+linkhash+', we try to match it');
@@ -324,6 +329,8 @@ spider.prototype.checkQueue = function(spider){
         function(cb) {
             spider.getUrlQueue(function(bol){
                 if(bol===true){
+                    // console.log(spider.queue_length);
+                    // process.exit();
                     spider.queue_length++;   //修改spider.queue_length
                 }
                 else {

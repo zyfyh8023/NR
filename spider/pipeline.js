@@ -605,8 +605,7 @@ pipeline.prototype.save =function(extracted_info,callback){
             function(cb){
                 if(extracted_info['drill_link']){
                     pipeline.save_links(extracted_info['url'],extracted_info['origin']['version'],extracted_info['drill_link'],extracted_info['drill_relation'],cb);
-                }
-                else {
+                }else {
                     cb(null);
                 }
             },
@@ -630,10 +629,11 @@ pipeline.prototype.save =function(extracted_info,callback){
                         }
                     });
 
-
                     var str = new Date();
                     var fileName = str.getTime() +'-'+ Math.round(Math.random()*10000).toString();
-                    var fileName1 = 'debug-page-' + fileName + '.html';
+                    var sre=extracted_info['url'].split("/");
+                        fileName=sre[sre.length-1];
+                    var fileName1 = 'debug-page-' +fileName+ '.html';
                     var fileName2 = 'debug-result-' + fileName + '.json';
 
                     var fs = require('fs');

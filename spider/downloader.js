@@ -108,13 +108,16 @@ downloader.prototype.getProxyListFromDb = function(label){
     });
 }
 
-/是否用phantomjs首次出现!!!
+//是否用phantomjs首次出现!!!
 ////download action/////////////////////    //test的第六个步骤
 downloader.prototype.download = function (urlinfo){
     if(urlinfo['jshandle']){          //true or false /*是否需要处理js，决定了爬虫是否用phantomjs加载页面*/
-        this.browseIt(urlinfo);       //test的第七个步骤
+       // console.log('使用了!');
+       // process.exit();
+       this.browseIt(urlinfo);       //test的第七个步骤
     }
     else{ 
+        // console.log('未使用！');
         this.downloadIt(urlinfo);    //test的第七个步骤
     }
 }
@@ -137,6 +140,9 @@ downloader.prototype.downloadItAct = function(urlinfo){
     var spiderCore = this.spiderCore;
     var self = this;
 
+    // console.log(urlinfo['url']);
+    // process.exit();
+    
     var timeOuter = false;
     var pageLink = urlinfo['url'];
     if(urlinfo['redirect']){     //linkinfo对象里面就没有这个属性，后面会有更新么？？？
@@ -334,8 +340,10 @@ downloader.prototype.browseIt = function(urlinfo){
         urlinfo['ipath'] = path.join(__dirname,'..', 'instance',this.spiderCore.settings['instance'],'logs');
     }
     var useProxy = false;
-    if(urlinfo['urllib']&&spiderCore.settings['use_proxy']===true){
-        if(spiderCore.spider.getDrillerRule(urlinfo['urllib'],'use_proxy')===true)useProxy=true;
+    if(urlinfo['urllib'] && spiderCore.settings['use_proxy']===true){
+        if(spiderCore.spider.getDrillerRule(urlinfo['urllib'],'use_proxy')===true){
+            useProxy=true;
+        }
     }
     var browserStart = new Date();
     if(useProxy){
@@ -377,10 +385,14 @@ downloader.prototype.browseIt = function(urlinfo){
     phantomjs.stdout.on('data', function(data) {
         data = data.trim();
         if(feedback==''&&!data.startsWith('{')){
-            logger.warn('phantomjs: '+data);
-            spiderCore.emit('crawling_failure',urlinfo,'data do not startsWith { .');
-            phantomjs.kill();
+            // logger.warn('phantomjs: '+data);
+            console.log('数据的格式不正确啊！！!');
+            // spiderCore.emit('crawling_failure',urlinfo,'data do not startsWith { .');
+            // phantomjs.kill();
         }else{
+            console.log('收到数据了！！！！');
+            // console.log(data['drill_link']);
+            // process.exit();
             feedback += data;
             if(data.endsWith('}#^_^#')){
                 var emit_string = feedback.slice(0,-5);
@@ -393,6 +405,9 @@ downloader.prototype.browseIt = function(urlinfo){
     phantomjs.on('feedback', function(data) {
         try{
             var feedback = JSON.parse(data);//data.toString('utf8')
+            // console.log(feedback['drill_link'].length);
+            // console.log(feedback['signal']);
+            // process.exit();
         }catch(e){
             logger.error(util.format('Page content parse error: %s',e));
             spiderCore.emit('crawling_break',urlinfo,e.message);

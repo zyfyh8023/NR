@@ -83,6 +83,7 @@ extractor.prototype.wash_link = function(pageurl,links){
             }
 
         }
+
     }
     return arrayUnique(cleaned_link);
 }
@@ -197,6 +198,16 @@ extractor.prototype.extract = function(crawl_info){
     if(crawl_info['origin']['format']=='binary'){
         return crawl_info;
     }
+    // for(key in crawl_info){
+    //     console.log(key);
+    // }
+
+    // console.log(crawl_info['url']);
+    // console.log(crawl_info['origin']);
+
+    // if(crawl_info['origin']['urllib']=='urllib:driller:mafengwo.cn:list')
+    // process.exit();
+
     var extract_rule = this.spiderCore.spider.getDrillerRule(crawl_info['origin']['urllib'],'extract_rule');   //获取对应的extract_rule
 
     // console.log(extract_rule);
@@ -209,12 +220,25 @@ extractor.prototype.extract = function(crawl_info){
         if(crawl_info['drill_link']){
             var drill_link = crawl_info['drill_link'];
         }else{
+            // console.log($);
+            // console.log(crawl_info['origin']['drill_rules']);
             var drill_link = this.extract_link($,crawl_info['origin']['drill_rules']);   //抓取页面的所有符合抓取规则的元素 链接
+            // console.log(drill_link.length);
+            // process.exit();
         }
-      
+     // console.log(drill_link);
+     // console.log(drill_link.length);
+     // process.exit();
         var washed_link = this.wash_link(crawl_info['url'], drill_link);   //对上面的抓取元素进行筛选
+    // console.log(washed_link);
+    // console.log(washed_link.length);
+    // process.exit();
         crawl_info['drill_link'] = this.arrange_link(washed_link);        //对上面的抓取链接地址进行分类存放
 
+        // console.log(crawl_info['drill_link']);
+        // console.log(crawl_info['drill_link'].length);
+        // process.exit();
+        
         // for(i in crawl_info){
         //     if(crawl_info.hasOwnProperty(i)){
         //         console.log(i);
@@ -226,12 +250,12 @@ extractor.prototype.extract = function(crawl_info){
         }
     }
     // console.log(extract_rule['rule'] && !isEmpty(extract_rule['rule']));
-    // process.exit();
+     // process.exit();
     if(extract_rule['rule'] && !isEmpty(extract_rule['rule'])){
         var extracted_data = this.extract_data(crawl_info['url'],crawl_info['content'],extract_rule,null,$.root());
         crawl_info['extracted_data'] = extracted_data;
         // console.log(extracted_data);
-        // process.exit();+
+        // process.exit();
     }
     return crawl_info;
 }

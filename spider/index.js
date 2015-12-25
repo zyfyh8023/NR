@@ -7,6 +7,7 @@ var path = require('path');
 var async = require('async');
 require('../lib/jsextend.js');
 
+
 var logger;
 ////spider core/////////////////////////////////////////
 var spiderCore = function(settings){
@@ -65,7 +66,7 @@ spiderCore.prototype.start = function(){
         if(this.extractor.validateContent(crawled_info)){  //根据返回码是否是200和规则里面的关键字indexof验证
             //if(crawled_info['content'].length<500)logger.warn(util.format('Strange content, length:%s, url:%s',crawled_info['content'].length,crawled_info['url']));
             var extracted_info = this.extractor.extract(crawled_info);
-            // console.log(extracted_info['extracted_data']);
+            // console.log(extracted_info);
             // process.exit();
             //saving
             async.series([
@@ -149,6 +150,8 @@ spiderCore.prototype.test = function(link){
 
     var self = this;
     this.on('standby',function(middleware){   //这个在downloader.js中被注释了，后期待看
+        // console.log('111111111111111111');
+        // process.exit();
         logger.debug(middleware+' stand by');
         delete this.unavailable_middlewares[middleware];
         if(isEmpty(this.unavailable_middlewares)){
